@@ -7,8 +7,8 @@ import { ContentComponent } from "./app-components/content/content.component";
 import { LoginComponent } from './app-components/login/login.component';
 import { FormsModule } from "@angular/forms";
 import { DashboardComponent } from "./app-components/dashboard/dashboard.component";
-import { CommonsModule } from "./common-module/commons.module";
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
+import { httpErrorInterceptorFn } from "./interceptors/http-error.interceptor";
 
 @NgModule({
   declarations: [
@@ -23,11 +23,12 @@ import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    CommonsModule
   ],
   providers: [
+
     provideHttpClient(
-      withFetch()
+      withFetch(),
+      withInterceptors([httpErrorInterceptorFn])
     )
   ],
   bootstrap: [AppComponent]

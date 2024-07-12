@@ -16,47 +16,74 @@
                 <form (ngSubmit)="onSubmitLogin()" #loginForm="ngForm">
 
                     <div class="form-outline mb-4">
-                        <input type="login" id="loginName" name="login" class="form-control" [(ngModel)]="login" />
-                        <label class="form-label" for="loginName">Username</label>
+                        <label class="form-label" for="loginName"> Your ID</label>
+                        <input [disabled]="isLoading" type="login" id="loginName" name="login" class="form-control"
+                            [(ngModel)]="customerId" />
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input type="password" id="loginPassword" name="password" class="form-control"
-                            [(ngModel)]="password" />
-                        <label class="form-label" for="loginPassword">Password</label>
+                        <label class="form-label" for="loginPassword">Your PIN</label>
+
+                        <input [disabled]="isLoading" type="password" id="loginPassword" name="password"
+                            class="form-control" [(ngModel)]="customerPin" />
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-
+                    <button [disabled]="isLoading" type="submit" class="btn btn-primary btn-block mb-4">Sign
+                        In</button>
+                    <div *ngIf="isLoading" class="spinner-border" role="status" style="color:  #102e44;">
+                        <span class="sr-only"></span>
+                    </div>
                 </form>
             </div>
             <div [ngClass]="active == 'register' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                <form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
+                <div *ngIf="!registerSuccess">
+                    <form (ngSubmit)="onSubmitRegister()" #registerForm="ngForm">
 
-                    <div class="form-outline mb-4">
-                        <input type="text" id="firstName" name="firstName" class="form-control"
-                            [(ngModel)]="firstName" />
-                        <label class="form-label" for="firstName">First name</label>
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="firstName">First name</label>
+                            <input [disabled]="isLoading" type="text" id="firstName" name="firstName"
+                                class="form-control" [(ngModel)]="firstName" />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="lastName">Last name</label>
+
+                            <input [disabled]="isLoading" type="text" id="lastName" name="lastName" class="form-control"
+                                [(ngModel)]="lastName" />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="lastName">Email</label>
+
+                            <input [disabled]="isLoading" type="text" id="email" name="email" class="form-control"
+                                [(ngModel)]="email" />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="login">Your ID</label>
+                            <input [disabled]="isLoading" type="text" id="login" name="login" class="form-control"
+                                [(ngModel)]="customerId" />
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-block mb-3">Sign Up</button>
+                        <div *ngIf="isLoading" class="spinner-border" role="status" style="color:  #102e44;">
+                            <span class="sr-only"></span>
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="registerSuccess">
+                    <div class="card">
+                        <div class="card-header">
+                            Registration Successful
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Your Login Details Are</h5>
+                            <p class="card-text"><strong>Username:</strong> {{loginDetails?.username}}</p>
+                            <p class="card-text"><strong>Password:</strong> {{loginDetails?.password}}</p>
+                        </div>
                     </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="text" id="lastName" name="lastName" class="form-control" [(ngModel)]="lastName" />
-                        <label class="form-label" for="lastName">Last name</label>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="text" id="login" name="login" class="form-control" [(ngModel)]="login" />
-                        <label class="form-label" for="login">Username</label>
-                    </div>
-
-                    <div class="form-outline mb-4">
-                        <input type="password" id="registerPassword" name="password" class="form-control"
-                            [(ngModel)]="password" />
-                        <label class="form-label" for="registerPassword">Password</label>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
-                </form>
+                </div>
             </div>
         </div>
     </div>
