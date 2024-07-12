@@ -28,8 +28,10 @@
                             class="form-control" [(ngModel)]="customerPin" />
                     </div>
 
-                    <button [disabled]="isLoading" type="submit" class="btn btn-primary btn-block mb-4">Sign
-                        In</button>
+                    <button [disabled]="isLoading" type="submit" class="btn btn-primary btn-block mb-4"
+                        style="color: #102e44; background-color: #b0f9f8;">
+                        Sign In
+                    </button>
                     <div *ngIf="isLoading" class="spinner-border" role="status" style="color:  #102e44;">
                         <span class="sr-only"></span>
                     </div>
@@ -66,7 +68,10 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary btn-block mb-3">Sign Up</button>
+                        <button [disabled]="isLoading" type="submit" class="btn btn-primary btn-block mb-4"
+                            style="color: #102e44; background-color: #b0f9f8;">
+                            Sign Up
+                        </button>
                         <div *ngIf="isLoading" class="spinner-border" role="status" style="color:  #102e44;">
                             <span class="sr-only"></span>
                         </div>

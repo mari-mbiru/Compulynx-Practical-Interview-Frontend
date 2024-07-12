@@ -8,7 +8,8 @@ import { LoginComponent } from './app-components/login/login.component';
 import { FormsModule } from "@angular/forms";
 import { DashboardComponent } from "./app-components/dashboard/dashboard.component";
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
-import { httpErrorInterceptorFn } from "./interceptors/http-error.interceptor";
+import { authInterceptor, httpErrorInterceptorFn } from "./interceptors/http-interceptor.factory";
+import { AuthService } from "./services/auth.service";
 
 @NgModule({
   declarations: [
@@ -25,10 +26,10 @@ import { httpErrorInterceptorFn } from "./interceptors/http-error.interceptor";
     FormsModule,
   ],
   providers: [
-
+    AuthService,
     provideHttpClient(
       withFetch(),
-      withInterceptors([httpErrorInterceptorFn])
+      withInterceptors([httpErrorInterceptorFn, authInterceptor])
     )
   ],
   bootstrap: [AppComponent]

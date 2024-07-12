@@ -45,7 +45,7 @@ export class LoginComponent {
   }
 
   onSubmitLogin(): void {
-
+    console.log("maybe some funny business here")
     this.isLoading = true;
     this.authenticationService.logIn(this.customerId, this.customerPin)
       .subscribe({

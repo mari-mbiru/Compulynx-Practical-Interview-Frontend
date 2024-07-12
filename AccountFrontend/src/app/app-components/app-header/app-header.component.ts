@@ -9,6 +9,6 @@ import { Component, Input } from '@angular/core';
 export class AppHeaderComponent {
 
   @Input() pageTitle!: string;
-  @Input() logoSrc!: string;
-  
+  @Input() logoSrc?: string;
+
 }

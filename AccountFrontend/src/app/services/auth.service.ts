@@ -5,26 +5,31 @@ import { CustomerAuthenticationResponseDTO, CustomerRegistrationRequestDTO, Cust
 import { Observable, tap } from "rxjs";
 import * as jwt_decode from 'jwt-decode';
 import { Router } from "@angular/router";
+import { HttpStatusCode } from "@angular/common/http";
+
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
+    constructor(
+        private router: Router,
+        private httpClient: HttpClientService,
+        private localStorageService: LocalStorageService
+    ) { }
 
+    getAccountDetails(): CustomerAuthenticationResponseDTO | null {
+        const userData = this.localStorageService.get('user');
+        return userData ? JSON.parse(userData) as CustomerAuthenticationResponseDTO : null;
+    }
 
-
-    constructor(private router: Router, private httpClient: HttpClientService, private localStorageService: LocalStorageService) {
-
+    getUserDetails(): UserProfileDTO | null {
+        const accountDetails = this.getAccountDetails();
+        return accountDetails?.customerDetail ?? null;
     }
 
     isAuthenticated(): boolean {
-        let userData = this.localStorageService.get('user');
-        let userDetail = JSON.parse(userData ? userData : "") as CustomerAuthenticationResponseDTO;
-
-        if (!!userDetail && userDetail.accessToken!!) {
-            return !this.isExpired(userDetail.accessToken)
-        }
-
-        return false;
+        const accountDetails = this.getAccountDetails();
+        return !!accountDetails && !!accountDetails.accessToken && !this.isExpired(accountDetails.accessToken);
     }
 
     logIn(username: string, password: string): Observable<CustomerAuthenticationResponseDTO> {
@@ -34,35 +39,35 @@ export class AuthService {
                     localStorage.setItem('user', JSON.stringify(response));
                 }
             })
-        )
+        );
     }
 
     register(customer: CustomerRegistrationRequestDTO): Observable<CustomerRegistrationResponseDTO> {
-        return this.httpClient.register(customer)
+        return this.httpClient.register(customer);
+    }
+
+    logOut(): void {
+        this.httpClient.logOut().subscribe(response => {
+            if (response.ok) {
+                localStorage.removeItem('user');
+                this.goToLogin();
+            }
+        });
     }
 
     isExpired(accessToken: string): boolean {
-        var token = this.getDecodeToken(accessToken);
-        console.log('decoded token', token)
-        const expiryTime = token.exp;
-        if (expiryTime) {
-            return ((1000 * expiryTime) - (new Date()).getTime()) < 5000;
-        } else {
-            return false;
-        }
-
+        const token = this.getDecodeToken(accessToken);
+        const expiryTime = token?.exp ?? 0;
+        return (expiryTime * 1000) < Date.now();
     }
 
     getDecodeToken(accessToken: string): jwt_decode.JwtPayload {
-        var token = jwt_decode.jwtDecode(accessToken);
         return jwt_decode.jwtDecode(accessToken);
     }
 
-    goToLogin() {
-
-        if (this.router.url.indexOf("login") === -1) {
-            this.router.navigate(['/', 'login'])
-
+    goToLogin(): void {
+        if (!this.router.url.includes("login")) {
+            this.router.navigate(['/', 'login']);
         }
     }
 }

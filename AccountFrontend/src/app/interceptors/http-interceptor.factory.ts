@@ -7,6 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 export function httpErrorInterceptorFn(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     return next(req).pipe(catchError((error: HttpErrorResponse) => {
@@ -25,4 +26,26 @@ export function httpErrorInterceptorFn(req: HttpRequest<unknown>, next: HttpHand
         alert(errorMessage);
         return throwError(() => new Error(errorMessage));
     }));
+}
+
+
+export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
+    const authToken = inject(AuthService).getAccountDetails()?.accessToken;
+
+    if (shouldExcludeFromAuthorization(req.url)) {
+        return next(req); // Pass the request through unchanged
+    }
+
+    const authReq = req.clone({
+        setHeaders: {
+            Authorization: `Bearer ${authToken}`
+        }
+    });
+    return next(authReq);
+}
+
+function shouldExcludeFromAuthorization(url: string): boolean {
+
+    const excludedUrls = ['/auth/authenticate', '/auth/register'];
+    return excludedUrls.some(excludedUrl => url.endsWith(excludedUrl));
 }

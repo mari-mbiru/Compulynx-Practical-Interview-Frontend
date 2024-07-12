@@ -1,7 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map, catchError } from "rxjs";
 import { CustomerAuthenticationRequestDTO, CustomerAuthenticationResponseDTO, CustomerRegistrationRequestDTO, CustomerRegistrationResponseDTO } from "./dtos/customer.dto";
+import { AccountBalanceResposne } from "./dtos/account.dto";
 
 @Injectable({ providedIn: "root" })
 export class HttpClientService {
@@ -20,6 +21,14 @@ export class HttpClientService {
         Observable<CustomerAuthenticationResponseDTO> {
 
         return this.http.post<CustomerAuthenticationResponseDTO>(`${this.apiUrl}/auth/authenticate`, payload);
+    }
+
+    logOut(): Observable<HttpResponse<any>> {
+        return this.http.post<any>(`${this.apiUrl}/auth/logout`, null, { observe: 'response' });
+    }
+
+    getBalance(customerId: string): Observable<AccountBalanceResposne> {
+        return this.http.get<AccountBalanceResposne>(`${this.apiUrl}/customers/${customerId}/balance`)
     }
 
 
