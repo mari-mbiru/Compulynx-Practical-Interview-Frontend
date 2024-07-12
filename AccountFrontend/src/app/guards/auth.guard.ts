@@ -3,7 +3,9 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTr
 import { Observable } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthGuard implements CanActivate {
 
     constructor(private authService: AuthService, private router: Router) { }
@@ -15,7 +17,7 @@ export class AuthGuard implements CanActivate {
         if (this.authService.isAuthenticated()) {
             return true; // Allow navigation
         } else {
-            // Redirect to login page or another route if not authenticated
+            // Redirect to login page
             this.router.navigate(['/login']);
             return false;
         }
