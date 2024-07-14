@@ -78,7 +78,6 @@ export class TransferDialogComponent {
   }
 
   selectCustomer(customer: Customer) {
-    console.log('making dropdown not visible')
     this.dropdownVisible = false;
     this.formGroup.patchValue({
       typedName: customer.customerName,
@@ -89,7 +88,6 @@ export class TransferDialogComponent {
   }
 
   onFocusOut() {
-    console.log('making dropdown not visible')
     this.dropdownVisible = false;
   }
 
@@ -97,14 +95,17 @@ export class TransferDialogComponent {
     this.isLoading = true
     var formValue = this.formGroup.value
     this.httpClient.createTransfer({ fromCustomerId: this.data, toCustomerId: formValue.userId as string, transferAmount: formValue.amount as number })
-      .subscribe(
-        response => {
+      .subscribe({
+        next: response => {
           this.isLoading = false;
           if (response.ok) {
             this.dialogRef.close('success')
           }
+        },
+        error: () => {
+          this.isLoading = false;
         }
-      )
+      })
   }
 
 

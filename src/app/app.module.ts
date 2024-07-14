@@ -10,9 +10,9 @@ import { DashboardComponent } from "./app-components/dashboard/dashboard.compone
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
 import { authInterceptor, httpErrorInterceptorFn } from "./interceptors/http-interceptor.factory";
 import { AuthService } from "./services/auth.service";
-import { MiniStatementComponent } from "./mini-statement/mini-statement.component";
 import { TransactionDialogComponent } from './app-components/dialogs/transaction-dialog/transaction-dialog.component';
 import { TransferDialogComponent } from './app-components/dialogs/transfer-dialog/transfer-dialog.component';
+import { MiniStatementComponent } from "./app-components/mini-statement/mini-statement.component";
 
 @NgModule({
   declarations: [

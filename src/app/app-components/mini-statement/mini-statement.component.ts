@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { HttpClientService } from '../services/http-client.service';
-import { AuthService } from '../services/auth.service';
-import { Transaction } from '../services/dtos/transactions.dto';
+import { Component } from "@angular/core";
+import { AuthService } from "../../services/auth.service";
+import { Transaction } from "../../services/dtos/transactions.dto";
+import { HttpClientService } from "../../services/http-client.service";
+
 
 @Component({
   selector: 'mini-statement',
