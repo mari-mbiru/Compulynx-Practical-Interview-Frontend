@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-8">
+        <h2>Mini Statement</h2>
+    </div>
+    <div class="col-4 text-end">
+        <button (click)="refresh()" [disabled]="isLoading" class="btn btn-primary">Refresh</button>
+    </div>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody id="miniStatement">
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <td>{{transaction.dateCreated | date}}</td>
+            <td>{{transaction.transactionAmount}}</td>
+            <td>{{transaction.transactionType}}</td>
+        </tr>
+    </tbody>
+</table>

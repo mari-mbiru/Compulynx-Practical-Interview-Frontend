@@ -27,3 +27,8 @@ export class UserProfileDTO {
     userName?: string;
     customerPin?: string;
 }
+
+export class Customer {
+    customerId!: string
+    customerName!: string
+}

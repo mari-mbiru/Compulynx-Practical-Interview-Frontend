@@ -47,12 +47,9 @@ export class AuthService {
     }
 
     logOut(): void {
-        this.httpClient.logOut().subscribe(response => {
-            if (response.ok) {
-                localStorage.removeItem('user');
-                this.goToLogin();
-            }
-        });
+        this.httpClient.logOut().subscribe();
+        localStorage.removeItem('user');
+        this.goToLogin();
     }
 
     isExpired(accessToken: string): boolean {

@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Transfer</h5>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="formGroup">
+            <div class="mb-3">
+                <label class="form-label">Recepient</label>
+                <input type="text" formControlName="typedName" placeholder="Type to select a recepient"
+                    (focus)="showDropdown()" (focusout)="onFocusOut()">
+                <ul class="dropdown-menu" *ngIf="dropdownVisible">
+                    <li class="dropdown-item" *ngFor="let s of suggestions" (click)="selectCustomer(s)">
+                        {{s.customerName}}</li>
+                </ul>
+
+
+                <label for="depositAmount" class="form-label">Amount</label>
+                <input type="number" class="form-control" placeholder="Enter amount" formControlName="amount">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
