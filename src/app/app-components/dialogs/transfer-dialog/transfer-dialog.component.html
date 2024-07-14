@@ -5,19 +5,25 @@
     <div class="card-body">
         <form [formGroup]="formGroup">
             <div class="mb-3">
-                <label class="form-label">Recepient</label>
-                <input type="text" formControlName="typedName" placeholder="Type to select a recepient"
-                    (focus)="showDropdown()" (focusout)="onFocusOut()">
-                <ul class="dropdown-menu" *ngIf="dropdownVisible">
-                    <li class="dropdown-item" *ngFor="let s of suggestions" (click)="selectCustomer(s)">
+                <!-- <input class="form-control" type="text" [value]="formGroup.get('typedName')?.value"
+                    formControlName="typedName" placeholder="Type to select a recepient" (focus)="showDropdown()"
+                    (focusout)="onFocusOut()">
+                <ul class="list-group" *ngIf="dropdownVisible">
+                    <li class="list-group-item" *ngFor="let s of suggestions" (click)="selectCustomer(s)">
                         {{s.customerName}}</li>
-                </ul>
-
+                </ul> -->
+                <label for="recipientAccount" class="form-label">Recipient Account</label>
+                <select formControlName="userId" class="form-select form-select-lg mb-3"
+                    aria-label=".form-select-lg example">
+                    <option selected>Select a recepient</option>
+                    <option *ngFor="let s of suggestions" value="s.userId">{{s.customerName}}</option>
+                </select>
 
                 <label for="depositAmount" class="form-label">Amount</label>
                 <input type="number" class="form-control" placeholder="Enter amount" formControlName="amount">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="formGroup.invalid || isLoading" type="submit" class="btn btn-primary"
+                (click)="onSubmitAmount()">Submit</button>
         </form>
     </div>
 </div>

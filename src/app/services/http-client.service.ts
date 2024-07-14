@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map, catchError } from "rxjs";
 import { Customer, CustomerAuthenticationRequestDTO, CustomerAuthenticationResponseDTO, CustomerRegistrationRequestDTO, CustomerRegistrationResponseDTO } from "./dtos/customer.dto";
@@ -36,8 +36,15 @@ export class HttpClientService {
         return this.http.get<Transaction[]>(`${this.apiUrl}/customers/${customerId}/mini-statement?`)
     }
 
-    getCustomers(name: string, limit = 10): Observable<Customer[]> {
-        return this.http.get<Customer[]>(`${this.apiUrl}/customers`, { params: { 'customerName': name, limit } })
+    getCustomers(name?: string, limit = 10): Observable<Customer[]> {
+
+        let params = new HttpParams();
+        params = params.set('limit', limit.toString());
+        if (name !== null && name !== undefined) {
+            params = params.set('customerName', name);
+        }
+
+        return this.http.get<Customer[]>(`${this.apiUrl}/customers`, { params: params })
     }
     createTransaction(payload: CreateTransactionRequestDto): Observable<HttpResponse<any>> {
         return this.http.post<HttpResponse<any>>(`${this.apiUrl}/accounts/transaction`, payload, { observe: "response" })

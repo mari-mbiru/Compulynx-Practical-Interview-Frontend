@@ -20,9 +20,11 @@ export class TransferDialogComponent {
 
   formGroup = this.formBuilder.group({
     userId: ['', Validators.required],
-    amount: [0, [Validators.required, Validators.min(0)]],
+    amount: [0, [Validators.required, Validators.min(0.0001)]],
     typedName: ['']
   });
+  isLoading = false;
+
 
   constructor(
     public dialogRef: DialogRef<string>,
@@ -35,6 +37,7 @@ export class TransferDialogComponent {
 
   ngOnInit() {
     this.getCustomerSuggestions()
+    this.getCustomers();
   }
 
   getCustomerSuggestions(): void {
@@ -45,7 +48,6 @@ export class TransferDialogComponent {
     ).subscribe(
       {
         next: (response: Customer[]) => {
-
           this.suggestions = [...response.filter(customer => !(customer.customerId === this.data))]
         },
         error: () => {
@@ -55,8 +57,22 @@ export class TransferDialogComponent {
     )
   }
 
+  getCustomers() {
+    this.httpClient.getCustomers()
+      .subscribe(
+        {
+          next: (response: Customer[]) => {
+            console.log(this.suggestions)
+            this.suggestions = [...response.filter(customer => !(customer.customerId === this.data))]
+          },
+          error: () => {
+            this.suggestions = []
+          }
+        }
+      )
+  }
+
   showDropdown() {
-    console.log('making dropdown visible')
     this.dropdownVisible = true;
     this.formGroup.get('userId')?.patchValue('');
   }
@@ -64,12 +80,37 @@ export class TransferDialogComponent {
   selectCustomer(customer: Customer) {
     console.log('making dropdown not visible')
     this.dropdownVisible = false;
-    this.formGroup.get('userId')?.patchValue(customer.customerId);
+    this.formGroup.patchValue({
+      typedName: customer.customerName,
+      userId: customer.customerId
+    })
+
+    console.log(this.formGroup)
   }
 
   onFocusOut() {
     console.log('making dropdown not visible')
     this.dropdownVisible = false;
+  }
+
+  onSubmitAmount() {
+    this.isLoading = true
+    var formValue = this.formGroup.value
+    this.httpClient.createTransfer({ fromCustomerId: this.data, toCustomerId: formValue.userId as string, transferAmount: formValue.amount as number })
+      .subscribe(
+        response => {
+          this.isLoading = false;
+          if (response.ok) {
+            this.dialogRef.close('success')
+          }
+        }
+      )
+  }
+
+
+
+  close() {
+    this.dialogRef.close()
   }
 
   ngOnDestroy() {
