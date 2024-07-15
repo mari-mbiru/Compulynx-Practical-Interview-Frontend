@@ -8,7 +8,7 @@ import { CreateTransactionRequestDto, CreateTransferRequestDto, Transaction } fr
 @Injectable({ providedIn: "root" })
 export class HttpClientService {
 
-    private apiUrl = 'http://localhost:8080/api/v1'; // Example API URL
+    private apiUrl = 'http://localhost:8080/api/v1';
 
     constructor(private http: HttpClient) { }
 

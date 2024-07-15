@@ -15,7 +15,7 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard]
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Default route
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: '/dashboard' }
 ];
 
