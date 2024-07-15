@@ -12,7 +12,7 @@
         <div class="col-md-12 text-center">
             <h3 class="balance" [ngStyle]="{'color':(accountBalance && accountBalance> 0) ? '#20c997':'#dc3545'}"> <span
                     class="badge bg-secondary">Balance:</span>
-                Ksh. {{accountBalance | number}}
+                Ksh. {{accountBalance | number:'1.2-2'}}
             </h3>
         </div>
     </div>
@@ -31,7 +31,7 @@
 
     <div class="row gy-2" style="padding-top: 20px;">
         <div class="col-md-12">
-            <mini-statement></mini-statement>
+            <mini-statement [balance]="accountBalance"></mini-statement>
         </div>
     </div>
 </div>

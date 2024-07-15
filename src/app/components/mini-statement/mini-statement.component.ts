@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, SimpleChanges } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { TransactionDto } from "../../services/dtos/transactions.dto";
 import { HttpClientService } from "../../services/http-client.service";
@@ -10,18 +10,23 @@ import { HttpClientService } from "../../services/http-client.service";
 })
 export class MiniStatementComponent {
 
+  @Input()
+  balance!: number;
+
   isLoading = false;
   transactions: TransactionDto[] = [];
   expandedRow: number | null = null;
 
-
-
-  constructor(private httpClient: HttpClientService, private authService: AuthService) {
-
-  }
+  constructor(private httpClient: HttpClientService, private authService: AuthService) { }
 
   ngOnInit() {
     this.getTransactions()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["balance"]) {
+      this.getTransactions()
+    }
   }
 
   getTransactions() {
@@ -66,5 +71,4 @@ export class MiniStatementComponent {
       return transaction.transactionType === 'CREDIT' ? 'DEPOSIT' : 'WITHDRAWAL';
     }
   }
-
 }

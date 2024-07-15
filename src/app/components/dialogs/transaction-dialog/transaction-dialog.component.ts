@@ -15,6 +15,10 @@ export class TransactionDialogComponent {
   dialogType: TransactionType = TransactionType.debit;
   amount = 0;
 
+  get invalidAmount(): boolean {
+    return !(this.amount > 0)
+  };
+
   constructor(
     public dialogRef: DialogRef<string>,
     @Inject(DIALOG_DATA) public data: TransactionType,
@@ -31,13 +35,16 @@ export class TransactionDialogComponent {
 
     if (userId) {
       this.httpClientService.createTransaction({ transactionAmount: this.amount, transactionType: this.dialogType, userId: userId })
-        .subscribe(
-          response => {
+        .subscribe({
+          next: response => {
             if (response.ok) {
               this.dialogRef.close('success')
             }
+          },
+          error: () => {
+            this.isLoading = false;
           }
-        )
+        })
     }
 
     this.isLoading = false;
@@ -46,6 +53,5 @@ export class TransactionDialogComponent {
   close() {
     this.dialogRef.close()
   }
-
 
 }

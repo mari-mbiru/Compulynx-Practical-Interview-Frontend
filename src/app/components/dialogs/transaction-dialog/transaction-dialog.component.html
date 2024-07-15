@@ -9,7 +9,7 @@
                 <input type="number" class="form-control" placeholder="Enter amount" name="firstName"
                     class="form-control" [(ngModel)]="amount">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button [disabled]="isLoading && invalidAmount" type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>

@@ -15,7 +15,7 @@ export class DashboardComponent {
 
 
   userDetail: UserProfileDto | null = null;
-  accountBalance: number | null = null;
+  accountBalance: number = 0;
   isLoading: boolean = true;
 
   constructor(

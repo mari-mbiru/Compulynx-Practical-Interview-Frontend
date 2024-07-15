@@ -5,13 +5,6 @@
     <div class="card-body">
         <form [formGroup]="formGroup">
             <div class="mb-3">
-                <!-- <input class="form-control" type="text" [value]="formGroup.get('typedName')?.value"
-                    formControlName="typedName" placeholder="Type to select a recepient" (focus)="showDropdown()"
-                    (focusout)="onFocusOut()">
-                <ul class="list-group" *ngIf="dropdownVisible">
-                    <li class="list-group-item" *ngFor="let s of suggestions" (click)="selectCustomer(s)">
-                        {{s.customerName}}</li>
-                </ul> -->
                 <label for="recipientAccount" class="form-label">Recipient Account</label>
                 <select formControlName="userId" class="form-select form-select-lg mb-3"
                     aria-label=".form-select-lg example">

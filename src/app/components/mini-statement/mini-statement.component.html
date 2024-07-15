@@ -18,7 +18,7 @@
     <tbody>
         <ng-container *ngFor="let transaction of transactions; let i=index">
             <tr (click)="toggleRow(i)" [class.table-active]="expandedRow === i">
-                <td>{{ transaction.dateCreated | date }}</td>
+                <td>{{ transaction.dateCreated | date:'medium' }}</td>
                 <td
                     [ngClass]="{'text-success': transaction.transactionType === 'CREDIT', 'text-danger': transaction.transactionType === 'DEBIT'}">
                     {{ transaction.transactionAmount }}

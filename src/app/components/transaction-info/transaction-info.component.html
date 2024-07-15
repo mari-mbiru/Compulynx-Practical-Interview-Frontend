@@ -1,17 +1,17 @@
 <div [ngSwitch]="transactionType">
     <p *ngSwitchCase="'TRANSFER-RECEIEVE'">
-        Recieved Ksh. {{transactionDetail?.transactionAmount | number}} from
+        Recieved Ksh. {{transactionDetail?.transactionAmount | number:'1.2-2'}} from
         {{transactionDetail?.transferDetail?.transferAccountName}}
     </p>
     <p *ngSwitchCase="'TRANSFER-SEND'">
-        Sent Ksh. {{transactionDetail?.transactionAmount | number}} to
+        Sent Ksh. {{transactionDetail?.transactionAmount | number:'1.2-2'}} to
         {{transactionDetail?.transferDetail?.transferAccountName}}
     </p>
     <p *ngSwitchCase="'WITHDRAW'">
-        Withdrawal Ksh. {{transactionDetail?.transactionAmount | number}} from this account
+        Withdrawal Ksh. {{transactionDetail?.transactionAmount | number:'1.2-2'}} from this account
     </p>
     <p *ngSwitchCase="'DEPOSIT'">
-        Deposit Ksh. {{transactionDetail?.transactionAmount | number}} to this account
+        Deposit Ksh. {{transactionDetail?.transactionAmount | number:'1.2-2'}} to this account
     </p>
     <p *ngSwitchDefault> No Data Loaded</p>
 </div>

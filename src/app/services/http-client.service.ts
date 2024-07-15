@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, map, catchError } from "rxjs";
+import { Observable } from "rxjs";
 import { CustomerDto, CustomerAuthenticationRequestDto, CustomerAuthenticationResponseDto, CustomerRegistrationRequestDto, CustomerRegistrationResponseDto } from "./dtos/customer.dto";
 import { AccountBalanceResposneDto } from "./dtos/account.dto";
 import { CreateTransactionRequestDto, CreateTransferRequestDto, TransactionDto } from "./dtos/transactions.dto";
