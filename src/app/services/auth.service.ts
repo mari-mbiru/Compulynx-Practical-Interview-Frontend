@@ -63,6 +63,7 @@ export class AuthService {
     }
 
     goToLogin(): void {
+        console.log(!this.router.url.includes("login"))
         if (!this.router.url.includes("login")) {
             this.router.navigate(['/', 'login']);
         }

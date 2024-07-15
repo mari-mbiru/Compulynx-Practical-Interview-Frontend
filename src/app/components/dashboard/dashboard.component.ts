@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { HttpClientService } from '../../services/http-client.service';
-import { CustomerAuthenticationResponseDTO, UserProfileDTO } from '../../services/dtos/customer.dto';
+import { Component } from "@angular/core";
+import { UserProfileDTO } from "../../services/dtos/customer.dto";
+import { AuthService } from "../../services/auth.service";
+import { HttpClientService } from "../../services/http-client.service";
+import { TransactionDialogComponent } from "../dialogs/transaction-dialog/transaction-dialog.component";
+import { TransferDialogComponent } from "../dialogs/transfer-dialog/transfer-dialog.component";
 import { Dialog } from '@angular/cdk/dialog';
-import { TransactionDialogComponent } from '../dialogs/transaction-dialog/transaction-dialog.component';
-import { TransferDialogComponent } from '../dialogs/transfer-dialog/transfer-dialog.component';
 
 @Component({
   selector: 'app-dashboard',

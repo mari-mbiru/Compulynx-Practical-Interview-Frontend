@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { catchError, first, Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subject } from "rxjs";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-login',

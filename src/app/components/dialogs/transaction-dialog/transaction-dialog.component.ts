@@ -1,8 +1,8 @@
+import { Component, Inject } from "@angular/core";
+import { AuthService } from "../../../services/auth.service";
+import { TransactionType } from "../../../services/dtos/transactions.dto";
+import { HttpClientService } from "../../../services/http-client.service";
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { Component, Inject } from '@angular/core';
-import { TransactionType } from '../../../services/dtos/transactions.dto';
-import { HttpClientService } from '../../../services/http-client.service';
-import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-transaction-dialog',

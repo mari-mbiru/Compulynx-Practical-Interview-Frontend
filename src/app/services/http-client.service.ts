@@ -54,4 +54,8 @@ export class HttpClientService {
         return this.http.post<HttpResponse<any>>(`${this.apiUrl}/accounts/transfer`, payload, { observe: "response" })
     }
 
+    getTransactionById(transactionId: string): Observable<Transaction> {
+        return this.http.get<Transaction>(`${this.apiUrl}/transactions/${transactionId}`)
+    }
+
 }

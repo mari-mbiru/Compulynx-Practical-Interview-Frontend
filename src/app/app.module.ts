@@ -1,18 +1,19 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { AppComponent } from "./app-components/app.component";
-import { AppHeaderComponent } from "./app-components/app-header/app-header.component";
-import { AppRoutingModule } from "./app-routing.module";
-import { ContentComponent } from "./app-components/content/content.component";
-import { LoginComponent } from './app-components/login/login.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DashboardComponent } from "./app-components/dashboard/dashboard.component";
+import { AppComponent } from "./components/app.component";
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
-import { authInterceptor, httpErrorInterceptorFn } from "./interceptors/http-interceptor.factory";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppRoutingModule } from "./app-routing.module";
+import { ContentComponent } from "./components/content/content.component";
+import { AppHeaderComponent } from "./components/header/app-header.component";
+import { LoginComponent } from "./components/login/login.component";
+import { MiniStatementComponent } from "./components/mini-statement/mini-statement.component";
+import { TransactionInfoComponent } from "./components/transaction-info/transaction-info.component";
+import { httpErrorInterceptorFn, authInterceptor } from "./interceptors/http-interceptor.factory";
 import { AuthService } from "./services/auth.service";
-import { TransactionDialogComponent } from './app-components/dialogs/transaction-dialog/transaction-dialog.component';
-import { TransferDialogComponent } from './app-components/dialogs/transfer-dialog/transfer-dialog.component';
-import { MiniStatementComponent } from "./app-components/mini-statement/mini-statement.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+import { TransferDialogComponent } from "./components/dialogs/transfer-dialog/transfer-dialog.component";
+import { TransactionDialogComponent } from "./components/dialogs/transaction-dialog/transaction-dialog.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MiniStatementComponent } from "./app-components/mini-statement/mini-sta
     DashboardComponent,
     MiniStatementComponent,
     TransactionDialogComponent,
-    TransferDialogComponent
+    TransferDialogComponent,
+    TransactionInfoComponent
   ],
   imports: [
     BrowserModule,

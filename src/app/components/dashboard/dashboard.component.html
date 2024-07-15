@@ -1,4 +1,4 @@
-<div class="container ">
+<div class="container">
     <div class="row mt-5">
         <div class="col-md-8">
             <h1>Hello, <span>{{userDetail?.userName}}</span>!</h1>
@@ -8,13 +8,16 @@
         </div>
     </div>
 
-    <div class="row gy-2">
+    <div class="row" style="padding-top: 20px;">
         <div class="col-md-12 text-center">
-            <h3 class="balance"> Your Balance: Ksh. {{accountBalance}}</h3>
+            <h3 class="balance" [ngStyle]="{'color':(accountBalance && accountBalance> 0) ? '#20c997':'#dc3545'}"> <span
+                    class="badge bg-secondary">Balance:</span>
+                Ksh. {{accountBalance | number}}
+            </h3>
         </div>
     </div>
 
-    <div class="row mt-4 gy-2">
+    <div class="row mt-4 gy-2" style="padding-top: 20px;">
         <div class="col-md-4">
             <button class="btn btn-primary w-100" (click)="openTransactionDialog('CREDIT')">Deposit</button>
         </div>
@@ -26,7 +29,7 @@
         </div>
     </div>
 
-    <div class="row gy-2">
+    <div class="row gy-2" style="padding-top: 20px;">
         <div class="col-md-12">
             <mini-statement></mini-statement>
         </div>

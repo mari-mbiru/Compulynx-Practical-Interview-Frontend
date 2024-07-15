@@ -4,6 +4,7 @@ export class Transaction {
     transactionAmount!: number
     transactionType!: TransactionType
     transferId?: string
+    transferDetail?: TransferDetail
 }
 
 export enum TransactionType {
@@ -21,4 +22,9 @@ export class CreateTransferRequestDto {
     transferAmount!: number
     fromCustomerId!: string
     toCustomerId!: string
+}
+
+export class TransferDetail {
+    transferAccountId!: string
+    transferAccountName!: string
 }

@@ -11,10 +11,15 @@ import { AuthService } from '../services/auth.service';
 
 export function httpErrorInterceptorFn(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     return next(req).pipe(catchError((error: HttpErrorResponse) => {
-        let errorMessage;
+        const authToken = inject(AuthService);
+        let errorMessage: string;
 
-        if (error.status == 401) {
+        if (error.status == 401 || error.status == 403) {
+            console.log('authentication error')
             errorMessage = 'You are currently logged out! You must log in to proceed';
+            alert(errorMessage);
+            authToken.logOut()
+            return throwError(() => new Error(errorMessage));
         }
 
         if (error.error instanceof ErrorEvent) {

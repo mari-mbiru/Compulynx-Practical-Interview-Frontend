@@ -1,9 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { BehaviorSubject, debounceTime, filter, Observable, Subject, switchMap, takeUntil } from 'rxjs';
-import { Customer } from '../../../services/dtos/customer.dto';
-import { HttpClientService } from '../../../services/http-client.service';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import { Component, Inject } from "@angular/core";
+import { Subject, debounceTime, takeUntil, switchMap } from "rxjs";
+import { Customer } from "../../../services/dtos/customer.dto";
+import { HttpClientService } from "../../../services/http-client.service";
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-transfer-dialog',
