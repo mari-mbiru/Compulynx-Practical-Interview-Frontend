@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { UserProfileDTO } from "../../services/dtos/customer.dto";
+import { UserProfileDto } from "../../services/dtos/customer.dto";
 import { AuthService } from "../../services/auth.service";
 import { HttpClientService } from "../../services/http-client.service";
 import { TransactionDialogComponent } from "../dialogs/transaction-dialog/transaction-dialog.component";
@@ -14,7 +14,7 @@ import { Dialog } from '@angular/cdk/dialog';
 export class DashboardComponent {
 
 
-  userDetail: UserProfileDTO | null = null;
+  userDetail: UserProfileDto | null = null;
   accountBalance: number | null = null;
   isLoading: boolean = true;
 

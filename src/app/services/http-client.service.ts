@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map, catchError } from "rxjs";
-import { Customer, CustomerAuthenticationRequestDTO, CustomerAuthenticationResponseDTO, CustomerRegistrationRequestDTO, CustomerRegistrationResponseDTO } from "./dtos/customer.dto";
-import { AccountBalanceResposne } from "./dtos/account.dto";
-import { CreateTransactionRequestDto, CreateTransferRequestDto, Transaction } from "./dtos/transactions.dto";
+import { CustomerDto, CustomerAuthenticationRequestDto, CustomerAuthenticationResponseDto, CustomerRegistrationRequestDto, CustomerRegistrationResponseDto } from "./dtos/customer.dto";
+import { AccountBalanceResposneDto } from "./dtos/account.dto";
+import { CreateTransactionRequestDto, CreateTransferRequestDto, TransactionDto } from "./dtos/transactions.dto";
 
 @Injectable({ providedIn: "root" })
 export class HttpClientService {
@@ -12,31 +12,31 @@ export class HttpClientService {
 
     constructor(private http: HttpClient) { }
 
-    register(payload: CustomerRegistrationRequestDTO):
-        Observable<CustomerRegistrationResponseDTO> {
+    register(payload: CustomerRegistrationRequestDto):
+        Observable<CustomerRegistrationResponseDto> {
 
-        return this.http.post<CustomerRegistrationResponseDTO>(`${this.apiUrl}/auth/register`, payload);
+        return this.http.post<CustomerRegistrationResponseDto>(`${this.apiUrl}/auth/register`, payload);
     }
 
-    authenticate(payload: CustomerAuthenticationRequestDTO):
-        Observable<CustomerAuthenticationResponseDTO> {
+    authenticate(payload: CustomerAuthenticationRequestDto):
+        Observable<CustomerAuthenticationResponseDto> {
 
-        return this.http.post<CustomerAuthenticationResponseDTO>(`${this.apiUrl}/auth/authenticate`, payload);
+        return this.http.post<CustomerAuthenticationResponseDto>(`${this.apiUrl}/auth/authenticate`, payload);
     }
 
     logOut(): Observable<HttpResponse<any>> {
         return this.http.post<any>(`${this.apiUrl}/auth/logout`, null, { observe: 'response' });
     }
 
-    getBalance(customerId: string): Observable<AccountBalanceResposne> {
-        return this.http.get<AccountBalanceResposne>(`${this.apiUrl}/customers/${customerId}/balance`)
+    getBalance(customerId: string): Observable<AccountBalanceResposneDto> {
+        return this.http.get<AccountBalanceResposneDto>(`${this.apiUrl}/customers/${customerId}/balance`)
     }
 
-    getMiniStatement(customerId: string): Observable<Transaction[]> {
-        return this.http.get<Transaction[]>(`${this.apiUrl}/customers/${customerId}/mini-statement?`)
+    getMiniStatement(customerId: string): Observable<TransactionDto[]> {
+        return this.http.get<TransactionDto[]>(`${this.apiUrl}/customers/${customerId}/mini-statement?`)
     }
 
-    getCustomers(name?: string, limit = 10): Observable<Customer[]> {
+    getCustomers(name?: string, limit = 10): Observable<CustomerDto[]> {
 
         let params = new HttpParams();
         params = params.set('limit', limit.toString());
@@ -44,7 +44,7 @@ export class HttpClientService {
             params = params.set('customerName', name);
         }
 
-        return this.http.get<Customer[]>(`${this.apiUrl}/customers`, { params: params })
+        return this.http.get<CustomerDto[]>(`${this.apiUrl}/customers`, { params: params })
     }
     createTransaction(payload: CreateTransactionRequestDto): Observable<HttpResponse<any>> {
         return this.http.post<HttpResponse<any>>(`${this.apiUrl}/accounts/transaction`, payload, { observe: "response" })
@@ -54,8 +54,8 @@ export class HttpClientService {
         return this.http.post<HttpResponse<any>>(`${this.apiUrl}/accounts/transfer`, payload, { observe: "response" })
     }
 
-    getTransactionById(transactionId: string): Observable<Transaction> {
-        return this.http.get<Transaction>(`${this.apiUrl}/transactions/${transactionId}`)
+    getTransactionById(transactionId: string): Observable<TransactionDto> {
+        return this.http.get<TransactionDto>(`${this.apiUrl}/transactions/${transactionId}`)
     }
 
 }

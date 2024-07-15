@@ -1,4 +1,4 @@
-export class Transaction {
+export class TransactionDto {
     uuid!: string
     dateCreated!: Date
     transactionAmount!: number

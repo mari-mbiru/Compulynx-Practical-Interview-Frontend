@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
-import { Transaction } from "../../services/dtos/transactions.dto";
+import { TransactionDto } from "../../services/dtos/transactions.dto";
 import { HttpClientService } from "../../services/http-client.service";
 
 @Component({
@@ -11,7 +11,7 @@ import { HttpClientService } from "../../services/http-client.service";
 export class MiniStatementComponent {
 
   isLoading = false;
-  transactions: Transaction[] = [];
+  transactions: TransactionDto[] = [];
   expandedRow: number | null = null;
 
 
@@ -59,7 +59,7 @@ export class MiniStatementComponent {
     this.getTransactions()
   }
 
-  getDetail(transaction: Transaction): string {
+  getDetail(transaction: TransactionDto): string {
     if (transaction.transferId) {
       return transaction.transactionType === 'CREDIT' ? 'TRANSFER IN' : 'TRANSFER OUT';
     } else {

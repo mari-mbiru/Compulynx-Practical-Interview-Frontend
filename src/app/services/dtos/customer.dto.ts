@@ -1,4 +1,4 @@
-export class CustomerRegistrationRequestDTO {
+export class CustomerRegistrationRequestDto {
 
     firstName!: string
     lastName!: string
@@ -7,28 +7,28 @@ export class CustomerRegistrationRequestDTO {
 }
 
 
-export class CustomerRegistrationResponseDTO {
-    customerDetail!: UserProfileDTO
+export class CustomerRegistrationResponseDto {
+    customerDetail!: UserProfileDto
 }
 
-export class CustomerAuthenticationRequestDTO {
+export class CustomerAuthenticationRequestDto {
     userID!: string
     userPin!: string
 }
 
-export class CustomerAuthenticationResponseDTO {
+export class CustomerAuthenticationResponseDto {
     accessToken?: string
     refreshToken?: string
-    customerDetail?: UserProfileDTO;
+    customerDetail?: UserProfileDto;
 }
 
-export class UserProfileDTO {
+export class UserProfileDto {
     userID?: string;
     userName?: string;
     customerPin?: string;
 }
 
-export class Customer {
+export class CustomerDto {
     customerId!: string
     customerName!: string
 }

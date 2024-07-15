@@ -1,7 +1,7 @@
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject } from "@angular/core";
 import { Subject, debounceTime, takeUntil, switchMap } from "rxjs";
-import { Customer } from "../../../services/dtos/customer.dto";
+import { CustomerDto } from "../../../services/dtos/customer.dto";
 import { HttpClientService } from "../../../services/http-client.service";
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
@@ -16,7 +16,7 @@ export class TransferDialogComponent {
 
   dropdownVisible = false;
 
-  suggestions: Customer[] = [];
+  suggestions: CustomerDto[] = [];
 
   formGroup = this.formBuilder.group({
     userId: ['', Validators.required],
@@ -47,7 +47,7 @@ export class TransferDialogComponent {
       switchMap((value) => this.httpClient.getCustomers(value ? value : ''))
     ).subscribe(
       {
-        next: (response: Customer[]) => {
+        next: (response: CustomerDto[]) => {
           this.suggestions = [...response.filter(customer => !(customer.customerId === this.data))]
         },
         error: () => {
@@ -61,7 +61,7 @@ export class TransferDialogComponent {
     this.httpClient.getCustomers()
       .subscribe(
         {
-          next: (response: Customer[]) => {
+          next: (response: CustomerDto[]) => {
             console.log(this.suggestions)
             this.suggestions = [...response.filter(customer => !(customer.customerId === this.data))]
           },
@@ -77,7 +77,7 @@ export class TransferDialogComponent {
     this.formGroup.get('userId')?.patchValue('');
   }
 
-  selectCustomer(customer: Customer) {
+  selectCustomer(customer: CustomerDto) {
     this.dropdownVisible = false;
     this.formGroup.patchValue({
       typedName: customer.customerName,

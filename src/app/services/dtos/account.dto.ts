@@ -1,4 +1,4 @@
-export class AccountBalanceResposne {
+export class AccountBalanceResposneDto {
     accountId!: string
     accountBalance!: number
 }

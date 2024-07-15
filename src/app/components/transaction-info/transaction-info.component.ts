@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { Transaction, TransactionType } from "../../services/dtos/transactions.dto";
+import { TransactionDto, TransactionType } from "../../services/dtos/transactions.dto";
 import { HttpClientService } from "../../services/http-client.service";
 
 @Component({
@@ -12,7 +12,7 @@ export class TransactionInfoComponent {
   @Input()
   transferId!: string;
 
-  transactionDetail?: Transaction;
+  transactionDetail?: TransactionDto;
 
   transactionType: 'TRANSFER-RECEIEVE' | 'TRANSFER-SEND' | 'WITHDRAW' | 'DEPOSIT' | 'UNKNOWN' = 'UNKNOWN'
 

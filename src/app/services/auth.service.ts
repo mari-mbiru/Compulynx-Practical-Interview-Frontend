@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClientService } from "./http-client.service";
 import { LocalStorageService } from "./local-storage.service";
-import { CustomerAuthenticationResponseDTO, CustomerRegistrationRequestDTO, CustomerRegistrationResponseDTO, UserProfileDTO } from "./dtos/customer.dto";
+import { CustomerAuthenticationResponseDto, CustomerRegistrationRequestDto, CustomerRegistrationResponseDto, UserProfileDto } from "./dtos/customer.dto";
 import { Observable, tap } from "rxjs";
 import * as jwt_decode from 'jwt-decode';
 import { Router } from "@angular/router";
@@ -17,13 +17,13 @@ export class AuthService {
     ) { }
 
     //Get logged in account details from local storage. Return null if none are found
-    getAccountDetails(): CustomerAuthenticationResponseDTO | null {
+    getAccountDetails(): CustomerAuthenticationResponseDto | null {
         const userData = this.localStorageService.get('user');
-        return userData ? JSON.parse(userData) as CustomerAuthenticationResponseDTO : null;
+        return userData ? JSON.parse(userData) as CustomerAuthenticationResponseDto : null;
     }
 
     //Get logged in account details from local storage, return only the user profile. Return null if none are found
-    getUserDetails(): UserProfileDTO | null {
+    getUserDetails(): UserProfileDto | null {
         const accountDetails = this.getAccountDetails();
         return accountDetails?.customerDetail ?? null;
     }
@@ -35,9 +35,9 @@ export class AuthService {
     }
 
     //Calls the http client to authenticate the user. If successful the user details are stored in local storage
-    logIn(username: string, password: string): Observable<CustomerAuthenticationResponseDTO> {
+    logIn(username: string, password: string): Observable<CustomerAuthenticationResponseDto> {
         return this.httpClient.authenticate({ userID: username, userPin: password }).pipe(
-            tap((response: CustomerAuthenticationResponseDTO) => {
+            tap((response: CustomerAuthenticationResponseDto) => {
                 if (response.customerDetail) {
                     localStorage.setItem('user', JSON.stringify(response));
                 }
@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     //Calls the http client to register a new user
-    register(customer: CustomerRegistrationRequestDTO): Observable<CustomerRegistrationResponseDTO> {
+    register(customer: CustomerRegistrationRequestDto): Observable<CustomerRegistrationResponseDto> {
         return this.httpClient.register(customer);
     }
 
