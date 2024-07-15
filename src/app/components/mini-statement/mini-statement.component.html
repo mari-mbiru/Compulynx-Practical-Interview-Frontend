@@ -21,7 +21,7 @@
                 <td>{{ transaction.dateCreated | date:'medium' }}</td>
                 <td
                     [ngClass]="{'text-success': transaction.transactionType === 'CREDIT', 'text-danger': transaction.transactionType === 'DEBIT'}">
-                    {{ transaction.transactionAmount }}
+                    {{ transaction.transactionAmount | number:'1.2-2' }}
                 </td>
                 <td
                     [ngClass]="{'text-success': (transaction.transactionType === 'CREDIT'), 'text-danger': (transaction.transactionType === 'DEBIT')}">
